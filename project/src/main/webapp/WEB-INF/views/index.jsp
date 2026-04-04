@@ -144,7 +144,7 @@
                     </sec:authorize>
                     <form method="post" action="/logout" style="display: inline;">
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                        <button type="submit">登出</button>
+                        <button type="submit">Logout</button>
                     </form>
                 </sec:authorize>
                 <sec:authorize access="isAnonymous()">
