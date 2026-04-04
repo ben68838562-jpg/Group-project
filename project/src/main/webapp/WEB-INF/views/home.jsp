@@ -172,7 +172,7 @@
                 </div>
                 <form method="post" action="/logout" style="display: inline;">
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                    <button type="submit" class="logout-btn">Login</button>
+                    <button type="submit" class="logout-btn">Logout</button>
                 </form>
             </div>
         </div>
