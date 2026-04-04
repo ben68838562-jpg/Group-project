@@ -201,12 +201,20 @@
             
             <form:form method="post" action="/register" modelAttribute="user">
                 <div class="form-group">
+                    <label>👤 Register as <span class="required">*</span></label>
+                    <form:select path="role" required="true" cssClass="form-control">
+                        <form:option value="ROLE_STUDENT" label="Student"/>
+                        <form:option value="ROLE_TEACHER" label="Teacher"/>
+                    </form:select>
+                </div>
+
+                <div class="form-group">
                     <label>📧 User name <span class="required">*</span></label>
                     <form:input path="username" placeholder="Please enter user name" required="true"/>
                 </div>
                 
                 <div class="form-group">
-                    <label>🔒 密碼 <span class="required">*</span></label>
+                    <label>🔒 Password <span class="required">*</span></label>
                     <form:password path="password" placeholder="Please enter password" required="true"/>
                 </div>
                 
