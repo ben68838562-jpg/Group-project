@@ -1,11 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>註冊 - 課程系統</title>
+    <title>Register - Course System</title>
     <style>
         * {
             margin: 0;
@@ -188,48 +188,48 @@
 <body>
     <div class="register-container">
         <div class="register-header">
-            <h2>🎓 加入課程系統</h2>
-            <p>建立新帳號，開始您的學習旅程</p>
+            <h2>🎓 Join the course system</h2>
+            <p>Create account. Start your learning</p>
         </div>
         
         <div class="register-body">
             <% if (request.getParameter("error") != null && request.getParameter("error").equals("username_exists")) { %>
                 <div class="alert alert-error">
-                    ⚠️ 帳號已存在，請使用其他帳號
+                    ⚠️ This user already exist. Please use another account.
                 </div>
             <% } %>
             
             <form:form method="post" action="/register" modelAttribute="user">
                 <div class="form-group">
-                    <label>📧 帳號 <span class="required">*</span></label>
-                    <form:input path="username" placeholder="請輸入帳號" required="true"/>
+                    <label>📧 User name <span class="required">*</span></label>
+                    <form:input path="username" placeholder="Please enter user name" required="true"/>
                 </div>
                 
                 <div class="form-group">
                     <label>🔒 密碼 <span class="required">*</span></label>
-                    <form:password path="password" placeholder="請輸入密碼" required="true"/>
+                    <form:password path="password" placeholder="Please enter password" required="true"/>
                 </div>
                 
                 <div class="form-group">
-                    <label>👤 全名</label>
-                    <form:input path="fullName" placeholder="請輸入您的姓名"/>
+                    <label>👤 Full name</label>
+                    <form:input path="fullName" placeholder="Please enter your name"/>
                 </div>
                 
                 <div class="form-group">
-                    <label>📧 電子郵件</label>
+                    <label>📧 Email</label>
                     <form:input path="email" type="email" placeholder="example@email.com"/>
                 </div>
                 
                 <div class="form-group">
-                    <label>📱 電話</label>
-                    <form:input path="phone" placeholder="請輸入電話號碼"/>
+                    <label>📱 Phone</label>
+                    <form:input path="phone" placeholder="Please enter your phone number"/>
                 </div>
                 
-                <button type="submit" class="register-btn">註冊新帳號</button>
+                <button type="submit" class="register-btn">Register</button>
             </form:form>
             
             <div class="login-link">
-                已有帳號？ <a href="/login">立即登入</a>
+                Already have account？ <a href="/login">Login now</a>
             </div>
         </div>
     </div>

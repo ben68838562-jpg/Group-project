@@ -2,11 +2,11 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>課程系統 - 首頁</title>
+    <title>Course system</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -132,15 +132,15 @@
 <body>
     <div class="container">
         <div class="navbar">
-            <div class="logo"><h1>🎓 課程系統</h1></div>
+            <div class="logo"><h1>Course system</h1></div>
             <div class="nav-links">
                 <sec:authorize access="isAuthenticated()">
-                    <a href="/home">個人首頁</a>
-                    <a href="/profile">個人資料</a>
+                    <a href="/home">Personal Homepage</a>
+                    <a href="/profile">Profile</a>
                     <sec:authorize access="hasRole('TEACHER')">
-                        <a href="/admin/users">管理用戶</a>
-                        <a href="/lecture/add">新增講座</a>
-                        <a href="/poll/add">新增投票</a>
+                        <a href="/admin/users">Manage User</a>
+                        <a href="/lecture/add">Add Lecture</a>
+                        <a href="/poll/add">Vote</a>
                     </sec:authorize>
                     <form method="post" action="/logout" style="display: inline;">
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -148,29 +148,29 @@
                     </form>
                 </sec:authorize>
                 <sec:authorize access="isAnonymous()">
-                    <a href="/login">登入</a>
-                    <a href="/register">註冊</a>
+                    <a href="/login">Login</a>
+                    <a href="/register">Register</a>
                 </sec:authorize>
             </div>
         </div>
         
         <div class="hero">
-            <h1>歡迎來到課程系統</h1>
-            <p>學習使用 Spring Boot、Spring MVC、Spring Security 建立網頁應用程式</p>
+            <h1>🎓 Welcome to the course system</h1>
+            <p>Learning Spring Boot、Spring MVC、Spring Security to build web application</p>
         </div>
         
         <div class="section">
-            <h2>📚 講座列表</h2>
+            <h2>Lecture List</h2>
             <c:forEach items="${lectures}" var="lecture">
                 <div class="lecture-item">
                     <div class="lecture-title">
                         <a href="/lecture/${lecture.id}">${lecture.title}</a>
                     </div>
                     <div class="lecture-summary">${lecture.summary}</div>
-                    <span class="badge">💬 ${lecture.comments.size()} 評論</span>
+                    <span class="badge">💬 ${lecture.comments.size()} comment</span>
                     <sec:authorize access="hasRole('TEACHER')">
                         <div class="admin-buttons">
-                            <a href="/lecture/delete/${lecture.id}" class="btn-sm btn-danger" onclick="return confirm('確定刪除？')">刪除</a>
+                            <a href="/lecture/delete/${lecture.id}" class="btn-sm btn-danger" onclick="return confirm('Are you sure to delete？')">Delete</a>
                         </div>
                     </sec:authorize>
                 </div>
@@ -178,16 +178,16 @@
         </div>
         
         <div class="section">
-            <h2>🗳️ 投票列表</h2>
+            <h2>🗳️ Vote List</h2>
             <c:forEach items="${polls}" var="poll">
                 <div class="poll-item">
                     <div class="poll-question">
                         <a href="/poll/${poll.id}">${poll.question}</a>
                     </div>
-                    <span class="badge">🗳️ ${poll.options.size()} 選項 | 💬 ${poll.comments.size()} 評論</span>
+                    <span class="badge">🗳️ ${poll.options.size()} Options | 💬 ${poll.comments.size()} Comment</span>
                     <sec:authorize access="hasRole('TEACHER')">
                         <div class="admin-buttons">
-                            <a href="/poll/delete/${poll.id}" class="btn-sm btn-danger" onclick="return confirm('確定刪除？')">刪除</a>
+                            <a href="/poll/delete/${poll.id}" class="btn-sm btn-danger" onclick="return confirm('Are you sure to delete？')">Delete</a>
                         </div>
                     </sec:authorize>
                 </div>

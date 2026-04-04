@@ -1,11 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>登入 - 課程系統</title>
+    <title>Login - Course System</title>
     <style>
         * {
             margin: 0;
@@ -200,29 +200,29 @@
 <body>
     <div class="login-container">
         <div class="login-header">
-            <h2>🎓 課程系統</h2>
-            <p>歡迎回來！請登入您的帳號</p>
+            <h2>🎓 Course System</h2>
+            <p>Welcome！Please Login</p>
         </div>
         
         <div class="login-body">
             <% if (request.getParameter("error") != null) { %>
                 <div class="alert alert-error">
                     <span class="icon">❌</span>
-                    帳號或密碼錯誤，請重新輸入
+                    User name or password not correct.Please try again.
                 </div>
             <% } %>
             
             <% if (request.getParameter("registered") != null) { %>
                 <div class="alert alert-success">
                     <span class="icon">✅</span>
-                    註冊成功！請使用您的帳號登入
+                    Register Success！Please login with your account.
                 </div>
             <% } %>
             
             <% if (request.getParameter("logout") != null) { %>
                 <div class="alert alert-info">
                     <span class="icon">👋</span>
-                    您已成功登出，歡迎下次再來
+                    Login out success!
                 </div>
             <% } %>
             
@@ -231,20 +231,20 @@
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 
                 <div class="form-group">
-                    <label>📧 帳號</label>
-                    <input type="text" name="username" placeholder="請輸入帳號" required autofocus>
+                    <label>📧 User Name</label>
+                    <input type="text" name="username" placeholder="Please enter user name" required autofocus>
                 </div>
                 
                 <div class="form-group">
-                    <label>🔒 密碼</label>
-                    <input type="password" name="password" placeholder="請輸入密碼" required>
+                    <label>🔒 Password</label>
+                    <input type="password" name="password" placeholder="Please enter password" required>
                 </div>
                 
-                <button type="submit" class="login-btn">登入系統</button>
+                <button type="submit" class="login-btn">Login</button>
             </form>
             
             <div class="register-link">
-                還沒有帳號？ <a href="/register">立即註冊</a>
+                Don't have account？ <a href="/register">Register now</a>
             </div>
         </div>
     </div>

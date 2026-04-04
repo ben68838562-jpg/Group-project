@@ -1,11 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>個人首頁 - 課程系統</title>
+    <title>Personal Homepage</title>
     <style>
         * {
             margin: 0;
@@ -164,49 +164,49 @@
     <div class="container">
         <div class="navbar">
             <div class="logo">
-                <h1>🎓 課程系統</h1>
+                <h1>🎓 Course system</h1>
             </div>
             <div class="user-info">
                 <div class="welcome-text">
-                    歡迎，<span class="username"><sec:authentication property="name"/></span>
+                    Welcome, <span class="username"><sec:authentication property="name"/></span>
                 </div>
                 <form method="post" action="/logout" style="display: inline;">
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                    <button type="submit" class="logout-btn">登出</button>
+                    <button type="submit" class="logout-btn">Login</button>
                 </form>
             </div>
         </div>
         
         <div class="hero">
-            <h2>🎉 登入成功！</h2>
-            <p>歡迎來到您的個人首頁</p>
+            <h2>🎉 Login Success！</h2>
+            <p>Welcome to your personal page</p>
         </div>
         
         <div class="info-card">
-            <h3>📊 個人資訊</h3>
+            <h3>📊 Personal Information</h3>
             <div class="info-item">
-                <div class="info-label">使用者名稱</div>
+                <div class="info-label">User name</div>
                 <div class="info-value"><sec:authentication property="name"/></div>
             </div>
             <div class="info-item">
-                <div class="info-label">角色權限</div>
+                <div class="info-label">User Right</div>
                 <div class="info-value"><sec:authentication property="authorities"/></div>
             </div>
         </div>
         
         <div class="info-card">
-            <h3>📚 我的課程</h3>
+            <h3>📚 My Course</h3>
             <div class="info-item">
-                <div class="info-label">進行中的課程</div>
-                <div class="info-value">Spring Boot 實戰開發</div>
+                <div class="info-label">Processing</div>
+                <div class="info-value">Spring Boot </div>
             </div>
             <div class="info-item">
-                <div class="info-label">已完成課程</div>
-                <div class="info-value">Java 基礎入門</div>
+                <div class="info-label">Finished course</div>
+                <div class="info-value">Java Fundamental</div>
             </div>
         </div>
         
-        <a href="/index" class="back-link">← 返回首頁</a>
+        <a href="/index" class="back-link">← Back to Home Page</a>
     </div>
 </body>
 </html>
