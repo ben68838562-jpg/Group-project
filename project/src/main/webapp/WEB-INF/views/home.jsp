@@ -161,6 +161,7 @@
     </style>
 </head>
 <body>
+
     <div class="container">
         <div class="navbar">
             <div class="logo">
@@ -190,7 +191,14 @@
             </div>
             <div class="info-item">
                 <div class="info-label">User Right</div>
-                <div class="info-value"><sec:authentication property="authorities"/></div>
+                <div class="info-value">
+                    <sec:authorize access="hasRole('TEACHER')">Teacher</sec:authorize>
+                    <sec:authorize access="hasRole('STUDENT')">Student</sec:authorize>
+
+                    <!--
+                    <small style="color:gray;">(Debug: <sec:authentication property="principal.authorities"/>)</small>
+                    -->
+                </div>
             </div>
         </div>
         
