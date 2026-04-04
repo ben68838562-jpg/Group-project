@@ -21,10 +21,20 @@ public class User {
     private String fullName;
     private String email;
     private String phone;
+
+    private String role;
     
     @Column(name = "created_at")
     private LocalDateTime createdAt;
-    
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     // Constructors
     public User() {}
     
