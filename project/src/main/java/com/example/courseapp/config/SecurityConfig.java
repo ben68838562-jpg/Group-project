@@ -1,11 +1,14 @@
 package com.example.courseapp.config;
 
+import com.example.courseapp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -15,14 +18,13 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Autowired
-    private UserDetailsService userDetailsService;
+    //@Autowired
+    //private UserDetailsService userDetailsService;
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http, UserDetailsService userDetailsService) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
-                // 公开访问的路径 - 所有JSP页面和资源
                 .requestMatchers(
                     new AntPathRequestMatcher("/"),
                     new AntPathRequestMatcher("/index"),
@@ -39,7 +41,6 @@ public class SecurityConfig {
                     new AntPathRequestMatcher("/h2-console/**"),
                     new AntPathRequestMatcher("/WEB-INF/views/**")  // 重要：允许访问JSP文件
                 ).permitAll()
-                // 其他所有请求都需要认证
                 .anyRequest().authenticated()
             )
             .userDetailsService(userDetailsService)
@@ -64,5 +65,22 @@ public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public UserDetailsService userDetailsService(UserRepository userRepository) {
+        return username -> {
+            // Handle the Optional correctly to avoid "Incompatible Types" error
+            com.example.courseapp.entity.User user = userRepository.findByUsername(username)
+                    .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
+
+            // CRITICAL: We pass user.getRole() to authorities()
+            // This maps the DB string (ROLE_TEACHER) to Spring Security
+            return org.springframework.security.core.userdetails.User
+                    .withUsername(user.getUsername())
+                    .password(user.getPassword())
+                    .authorities(user.getRole())
+                    .build();
+        };
     }
 }
