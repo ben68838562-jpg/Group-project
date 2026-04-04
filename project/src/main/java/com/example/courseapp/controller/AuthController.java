@@ -18,20 +18,20 @@ public class AuthController {
 
     @GetMapping("/login")
     public String login() {
-        System.out.println("返回 login 視圖");
+        System.out.println("login");
         return "login";
     }
 
     @GetMapping("/register")
     public String showRegisterForm(@ModelAttribute("user") UserRegistrationDto dto) {
-        System.out.println("返回 register 視圖");
+        System.out.println("Register");
         return "register";
     }
 
     @PostMapping("/register")
     public String registerUser(@ModelAttribute("user") UserRegistrationDto dto) {
-        System.out.println("註冊用戶: " + dto.getUsername());
+        System.out.println("Register: " + dto.getUsername());
         userService.registerNewUser(dto);
-        return "redirect:/login";
+        return "redirect:/login?register=true";
     }
 }
