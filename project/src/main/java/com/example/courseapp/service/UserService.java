@@ -17,18 +17,17 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
     
     public void registerNewUser(UserRegistrationDto dto) {
-        // 检查用户名是否已存在
         if (userRepository.existsByUsername(dto.getUsername())) {
-            throw new RuntimeException("用戶名已存在");
+            throw new RuntimeException("username already exists");
         }
-        
-        // 创建新用户
+
         User user = new User();
         user.setUsername(dto.getUsername());
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
         user.setFullName(dto.getFullName());
         user.setEmail(dto.getEmail());
         user.setPhone(dto.getPhone());
+        user.setRole(dto.getRole());
         
         userRepository.save(user);
     }
