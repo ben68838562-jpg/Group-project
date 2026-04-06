@@ -190,6 +190,20 @@
                 <div class="info-value"><sec:authentication property="name"/></div>
             </div>
             <div class="info-item">
+                <div class="info-label">Full Name</div>
+                <div class="info-value">${user.fullName}</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Email</div>
+                <div class="info-value">${user.email}</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Phone</div>
+                <div class="info-value">${user.phone}</div>
+            </div>
+        </div>
+
+            <div class="info-item">
                 <div class="info-label">User Right</div>
                 <div class="info-value">
                     <sec:authorize access="hasRole('TEACHER')">Teacher</sec:authorize>
@@ -200,6 +214,11 @@
                     -->
                 </div>
             </div>
+
+        <div style="margin-top: 20px;">
+            <a href="/home/edit">Edit Profile</a>
+        </div>
+
         </div>
         
         <div class="info-card">
