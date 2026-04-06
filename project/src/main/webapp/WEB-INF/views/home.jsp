@@ -219,8 +219,6 @@
             <a href="/home/edit">Edit Profile</a>
         </div>
 
-        </div>
-        
         <div class="info-card">
             <h3>📚 My Course</h3>
             <div class="info-item">
@@ -231,6 +229,12 @@
                 <div class="info-label">Finished course</div>
                 <div class="info-value">Java Fundamental</div>
             </div>
+
+            <sec:authorize access="hasRole('TEACHER')">
+                <a href="/teacher/dashboard">
+                    Teacher Dashboard
+                </a>
+            </sec:authorize>
         </div>
         
         <a href="/index" class="back-link">← Back to Home Page</a>
