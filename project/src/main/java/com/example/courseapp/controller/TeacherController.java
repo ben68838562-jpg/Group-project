@@ -7,10 +7,7 @@ import com.example.courseapp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
@@ -39,7 +36,7 @@ public class TeacherController {
         return "course-form";
     }
 
-    @PostMapping("/course/new")
+    @PostMapping("/course/save")
     public String saveCourse(@ModelAttribute("course") course course, Principal principal) {
         User teacher = userRepository.findByUsername(principal.getName())
                 .orElseThrow(() -> new RuntimeException("User not found"));
@@ -48,4 +45,22 @@ public class TeacherController {
         courseRepository.save(course);
         return "redirect:/teacher/dashboard";
     }
+
+    @GetMapping("/course/edit/{id}")
+    public String editCourse(@PathVariable Long id, Model model) {
+        // Find the course by its database ID
+        course existingCourse = courseRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Course not found with id: " + id));
+
+        // Add it to the model so the form is pre-filled
+        model.addAttribute("course", existingCourse);
+        return "course-form";
+    }
+
+    @GetMapping("/course/delete/{id}")
+    public String deleteCourse(@PathVariable Long id) {
+        courseRepository.deleteById(id); // Delete from DB
+        return "redirect:/teacher/dashboard";
+    }
+
 }
