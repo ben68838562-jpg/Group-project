@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -220,23 +221,47 @@
         </div>
 
         <div class="info-card">
-            <h3>📚 My Course</h3>
-            <div class="info-item">
-                <div class="info-label">Processing</div>
-                <div class="info-value">Spring Boot </div>
-            </div>
-            <div class="info-item">
-                <div class="info-label">Finished course</div>
-                <div class="info-value">Java Fundamental</div>
-            </div>
+            <h3>
+                ${user.role.contains('TEACHER') ? '📚 My Managing Courses' : 'Available course'}
+            </h3>
+
+            <c:if test="${not empty course}">
+                <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                    <thead>
+                        <tr style="text-align: left; border-bottom: 1px solid #eee;">
+                            <th>CourseCode</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Credits</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach var="course" items="${course}">
+                            <tr style="border-bottom: 1px solid #f9f9f9; height: 40px;">
+                                <td><strong>${course.courseId}</strong></td>
+                                <td>${course.courseName}</td>
+                                <td>${course.description}</td>
+                                <td>${course.credits}</td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+            </c:if>
+
+            <c:if test="${empty course}">
+                <p style="color: gray; font-style: italic;">No courses found.</p>
+            </c:if>
 
             <sec:authorize access="hasRole('TEACHER')">
-                <a href="/teacher/dashboard">
-                    Teacher Dashboard
-                </a>
+                <div style="margin-top: 15px;">
+                    <a href="/teacher/dashboard" class="btn"
+                       style="color: #667eea; text-decoration: none; font-size: 0.9em;">
+                        Manage Courses in Dashboard →
+                    </a>
+                </div>
             </sec:authorize>
         </div>
-        
+
         <a href="/index" class="back-link">← Back to Home Page</a>
     </div>
 </body>
