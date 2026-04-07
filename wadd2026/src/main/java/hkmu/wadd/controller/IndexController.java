@@ -10,4 +10,9 @@ public class IndexController {
     public String index() {
         return "redirect:/guestbook/";
     }
+
+    @GetMapping("/login")
+    public String loginPage() {
+        return "login"; // resolves to /WEB-INF/jsp/login.jsp
+    }
 }
