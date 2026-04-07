@@ -18,9 +18,10 @@
 </div>
 <div class="container"
      style="max-width: 600px; margin: 50px auto; background: white; padding: 30px; border-radius: 10px;">
-    <h2>Add New Course</h2>
+    <h2>${course.id == null ? 'Add new course' : 'Edit Course'}</h2>
 
     <form:form action="/teacher/course/save" method="post" modelAttribute="course">
+        <form:hidden path="id"/>
         <div style="margin-bottom: 15px;">
             <label>Course Code (e.g., CS101):</label><br/>
             <form:input path="courseId" required="true" style="width: 100%; padding: 8px;"/>
@@ -41,9 +42,8 @@
             <form:textarea path="description" required="true" rows="4" style="width: 100%; padding: 8px;"/>
         </div>
 
-        <button type="submit"
-                style="background: #48bb78; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
-            Create Course
+        <button type="submit">
+            ${course.id == null ? 'Create Course' : 'Save Changes'}
         </button>
         <a href="/teacher/dashboard" style="margin-left: 10px; color: #666;">Cancel</a>
     </form:form>
