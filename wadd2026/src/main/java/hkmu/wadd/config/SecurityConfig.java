@@ -33,7 +33,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/guestbook/edit/**","/guestbook/delete/**").hasRole("TEACHER")
+                        .requestMatchers("/guestbook/edit/**","/guestbook/delete/**").hasRole("ADMIN")
                         .requestMatchers("/guestbook/**").hasAnyRole("ADMIN","USER")
                         .anyRequest().permitAll()
                 )
