@@ -1,40 +1,73 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Login</title>
+    <meta charset="UTF-8">
+    <title>Login - Course System</title>
+    <style>
+        /* Keep your existing CSS styles here */
+    </style>
 </head>
 <body>
-<h1>Login</h1>
+<div class="login-container">
+    <div class="login-header">
+        <h2>🎓 Course System</h2>
+        <p>Welcome! Please Login</p>
+    </div>
 
-<!-- Error message if login fails -->
-<c:if test="${param.error != null}">
-    <p style="color:red;">Invalid username or password.</p>
-</c:if>
+    <div class="login-body">
+        <!-- Error message -->
+        <c:if test="${param.error != null}">
+            <div class="alert alert-error">
+                <span class="icon">❌</span>
+                Username or password incorrect. Please try again.
+            </div>
+        </c:if>
 
-<!-- Logout message -->
-<c:if test="${param.logout != null}">
-    <p style="color:green;">You have been logged out successfully.</p>
-</c:if>
+        <!-- Registration success -->
+        <c:if test="${param.registered != null}">
+            <div class="alert alert-success">
+                <span class="icon">✅</span>
+                Registration successful! Please login with your account.
+            </div>
+        </c:if>
 
-<!-- Login form -->
-<form action="<c:url value='/login'/>" method="POST">
-    <p>
-        User: <input type="text" name="username" />
-    </p>
-    <p>
-        Password: <input type="password" name="password" />
-    </p>
-    <p>
-        <em>Remember Me:</em> <input type="checkbox" name="remember-me" />
-    </p>
+        <!-- Logout success -->
+        <c:if test="${param.logout != null}">
+            <div class="alert alert-info">
+                <span class="icon">👋</span>
+                You have been logged out successfully.
+            </div>
+        </c:if>
 
-    <!-- CSRF token -->
-    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+        <!-- Login form -->
+        <form method="post" action="<c:url value='/login'/>">
+            <!-- CSRF token -->
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
-    <p>
-        <input type="submit" value="Log In" />
-    </p>
-</form>
+            <div class="form-group">
+                <label>📧 Username</label>
+                <input type="text" name="username" placeholder="Enter username" required autofocus>
+            </div>
+
+            <div class="form-group">
+                <label>🔒 Password</label>
+                <input type="password" name="password" placeholder="Enter password" required>
+            </div>
+
+            <div class="form-group">
+                <em>Remember Me:</em>
+                <input type="checkbox" name="remember-me" />
+            </div>
+
+            <button type="submit" class="login-btn">Login</button>
+        </form>
+
+        <div class="register-link">
+            Don’t have an account? <a href="<c:url value='/register'/>">Register now</a>
+        </div>
+    </div>
+</div>
 </body>
 </html>
